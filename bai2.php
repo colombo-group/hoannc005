@@ -31,7 +31,7 @@ if(isset($_POST['name']) && isset($_POST['value'])){
 	echo '<h2>Hiển thị đồ thị</h2>';
 	echo '<table border = "1">';
 	for ($i=0; $i < sizeof($names) ; $i++) {
-		if(is_numeric($values[$i])){
+		if(is_numeric($values[$i]) && floatval($values[$i]) <= 100){
 			$row = "";
 			$row .= 		'<tr>'
 				.			'<td>'.$names[$i].'</td>'	
