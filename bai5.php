@@ -5,6 +5,7 @@
 </form>
 <div style = "text-align: center">
 <?php 
+header('Content-Type: text/html; charset=utf-8');
 if(isset($_POST['draw'])){
 	$number = $_POST['number'];
 	if(is_numeric($number) && (int)$number == floatval($number)){

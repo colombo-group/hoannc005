@@ -1,4 +1,5 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
 $count = 0;
 echo '<h1> Bài 2: Vẽ đồ thị</h1>'
 	.'<form method = "post" action ="">'

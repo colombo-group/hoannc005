@@ -4,6 +4,7 @@
 	<input type = "submit" name = "draw" value = "Vẽ tam giác">
 </form>
 <?php 
+header('Content-Type: text/html; charset=utf-8');
 if(isset($_POST['draw'])){
 	$number = $_POST['number'];
 	if(is_numeric($number) && (int)$number == floatval($number)){

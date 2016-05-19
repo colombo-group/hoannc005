@@ -1,5 +1,6 @@
 <h1>Bài 7: Lịch</h1>
 <?php 
+header('Content-Type: text/html; charset=utf-8');
 function display(){
 	$monthDays = array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
 	$thisday= date("w");

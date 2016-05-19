@@ -9,6 +9,7 @@
 	<input type = "text" name = "value2" placeholder="Giá trị 2">
 </form>
 <?php 
+header('Content-Type: text/html; charset=utf-8');
 $result = 0;
 if(isset($_POST)){
 	$value1 = 0;
