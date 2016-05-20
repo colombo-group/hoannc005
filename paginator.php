@@ -33,20 +33,20 @@ function pagination($a, $b, $value_number_limit, $url, $page_current){
 		$number_page = ceil($total_value / $value_number_limit);
 		if($page_current > 1){
 			$page = $page_current - 1;
-			$list_page .= '<td><a href = "'.$url.'?page='.$page.'&&a='.$a.'&&b='.$b.'&&c='.$value_number_limit.'">'.'Prev</a></td>';
+			$list_page .= '<td><a href = "'.$url.'?page='.$page.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.'Prev</a></td>';
 		}
 		if($number_page > 1){
 			for($i = 1; $i <= $number_page; $i++){
 				if($i == $page_current){
 					$list_page .= '<td><b>'.$i.'</b></td>';
 				}else{
-					$list_page .= '<td><a href = "'.$url.'?page='.$i.'&&a='.$a.'&&b='.$b.'&&c='.$value_number_limit.'">'.$i.'</a></td>';
+					$list_page .= '<td><a href = "'.$url.'?page='.$i.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.$i.'</a></td>';
 				}
 			}
 		}
 		if($page_current < $number_page){
 			$page = $page_current + 1;
-			$list_page .= '<td><a href = "'.$url.'?page='.$page.'&&a='.$a.'&&b='.$b.'&&c='.$value_number_limit.'">'.'Next</a></td>';
+			$list_page .= '<td><a href = "'.$url.'?page='.$page.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.'Next</a></td>';
 		}
 		$list_page .= "</tr></table>";
 	}
@@ -66,6 +66,10 @@ if($a != -1 && $b != -1 && $c != -1){
 	if(is_numeric($a) && is_numeric($b) && is_numeric($c)){
 		if((int)$a == floatval($a) && (int)$b == floatval($b) && (int)$c == floatval($c)){
 			if($b < $a){
+				echo '<h3>Danh sách số đã nhập vào</h3>';
+				echo '<p>Số a = '. $a.'</p>';
+				echo '<p>Số b = '. $b.'</p>';
+				echo '<p>Số c = '. $c.'</p>';
 				$url = "paginator.php";
 				pagination($a, $b, $c, $url, $page_current);		
 			}else{
