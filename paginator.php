@@ -62,7 +62,10 @@ if(isset($_POST['submit'])){
 	$c = isset ( $_GET["c"] ) ? intval ( $_GET["c"] ) : -1;
 }
 $page_current = isset ( $_GET["page"] ) ? intval ( $_GET["page"] ) : 1;
-if($a != -1 && $b != -1 && $c != -1){
+if($page_current == 0){
+	$page_current = 1;
+}
+if($a != -1 && $b != -1 && $c != -1 && $page_current > 0){
 	if(is_numeric($a) && is_numeric($b) && is_numeric($c)){
 		if((int)$a == floatval($a) && (int)$b == floatval($b) && (int)$c == floatval($c)){
 			if($b < $a){
