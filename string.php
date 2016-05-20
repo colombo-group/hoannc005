@@ -1,18 +1,24 @@
+<?php 
+
+$paragraph = isset($_POST['paragraph']) ? $_POST['paragraph'] : "";
+$characters = isset($_POST['characters']) ? $_POST['characters'] : "";
+
+?>
 <h1>Bài bonus 2</h1>
 <form action = "" method = "post">
 	Đoạn văn bản: <br>
-	<textarea name = "paragraph" rows="10" cols="100"></textarea>
-	<br>Ký tự tìm kiếm: <input type = "text" name = "characters">
+	<textarea name = "paragraph" rows="10" cols="100"><?php echo $paragraph;?></textarea>
+	<br>Ký tự tìm kiếm: <input type = "text" name = "characters" value = "<?php echo $characters;?>">
 	<input type = "submit" value = "Phân tích" name = "submit">
 </form>
 <?php 
 if(isset($_POST["submit"])){
-	$paragraph = $_POST['paragraph'];
-	$characters = $_POST['characters'];
 	if(!empty($paragraph) && !empty($characters)){
+		$vietnamese = "ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ";
 		$pattern_character = '/'.$characters.'/';
-		$pattern_word = '/\w*'.$characters.'\w*/';
-		$characters_replaced = '<b>'.$characters.'</b>';
+		$pattern_word = '/[a-zA-Z0-9_'.$vietnamese.']*'.$characters.'[a-zA-Z0-9_'.$vietnamese.']*/';
+		// $pattern_word = '/\w*'.$characters.'\w*/';
+		$characters_replaced = '<b style="font-size:30px">'.$characters.'</b>';
 		preg_match_all($pattern_word, $paragraph, $listWords, PREG_OFFSET_CAPTURE);
 		echo '<h3>Đoạn văn bản nhập vào: </h3>';
 		echo $paragraph.'<hr>';
@@ -25,8 +31,8 @@ if(isset($_POST["submit"])){
 			echo $i + 1; 
 			echo '- '.$listWords[0][$i][0];
 			echo '<br>';
-			$pattern_word_replaced[] = '/\b'.$listWords[0][$i][0].'\b/';
-			$word_replaced[] = '<b>'.$listWords[0][$i][0].'</b>';
+			$pattern_word_replaced[] = '/'.$listWords[0][$i][0].'/';
+			$word_replaced[] = '<b style="font-size:30px">'.$listWords[0][$i][0].'</b>';
 		}
 		echo '<hr><h3>Đoạn văn bản chứa ký tự "'.$characters.'" được bôi đậm: </h3>';
 		echo preg_replace($pattern_character,$characters_replaced, $paragraph);
