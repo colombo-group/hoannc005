@@ -1,8 +1,19 @@
+<?php 
+if(isset($_POST['submit'])){
+	$a = isset ( $_POST["a"] ) ? $_POST["a"] : 0;
+	$b = isset ( $_POST["b"] ) ? $_POST["b"] : 0;
+	$c = isset ( $_POST["c"] ) ? $_POST["c"] : 0;
+}else{
+	$a = isset ( $_GET["a"] ) ? intval ( $_GET["a"] ) : 0;
+	$b = isset ( $_GET["b"] ) ? intval ( $_GET["b"] ) : 0;
+	$c = isset ( $_GET["c"] ) ? intval ( $_GET["c"] ) : 0;
+}
+?>
 <h1>Thuật toán phân trang</h1>
 <form method = "post" action = "">
-	Số a<input type = "text" name = "a"><br>
-	Số b<input type = "text" name = "b"><br>
-	Số c<input type = "text" name = "c"><br>
+	Số a<input type = "text" name = "a" value = "<?php echo $a; ?>"><br>
+	Số b<input type = "text" name = "b" value = "<?php echo $b; ?>"><br>
+	Số c<input type = "text" name = "c" value = "<?php echo $c; ?>"><br>
 	<input type = "submit" value = "Hiển thị" name = "submit">
 </form>
 
@@ -38,7 +49,7 @@ function pagination($a, $b, $value_number_limit, $url, $page_current){
 		if($number_page > 1){
 			for($i = 1; $i <= $number_page; $i++){
 				if($i == $page_current){
-					$list_page .= '<td><b>'.$i.'</b></td>';
+					$list_page .= '<td><b style = "color: red">'.$i.'</b></td>';
 				}else{
 					$list_page .= '<td><a href = "'.$url.'?page='.$i.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.$i.'</a></td>';
 				}
@@ -52,27 +63,15 @@ function pagination($a, $b, $value_number_limit, $url, $page_current){
 	}
 	echo $list_page;
 }
-if(isset($_POST['submit'])){
-	$a = isset ( $_POST["a"] ) ? $_POST["a"] : -1;
-	$b = isset ( $_POST["b"] ) ? $_POST["b"] : -1;
-	$c = isset ( $_POST["c"] ) ? $_POST["c"] : -1;
-}else{
-	$a = isset ( $_GET["a"] ) ? intval ( $_GET["a"] ) : -1;
-	$b = isset ( $_GET["b"] ) ? intval ( $_GET["b"] ) : -1;
-	$c = isset ( $_GET["c"] ) ? intval ( $_GET["c"] ) : -1;
-}
+
 $page_current = isset ( $_GET["page"] ) ? intval ( $_GET["page"] ) : 1;
 if($page_current == 0){
 	$page_current = 1;
 }
-if($a != -1 && $b != -1 && $c != -1 && $page_current > 0){
+if($a != 0 && $b != 0 && $c != 0 && $page_current > 0){
 	if(is_numeric($a) && is_numeric($b) && is_numeric($c)){
 		if((int)$a == floatval($a) && (int)$b == floatval($b) && (int)$c == floatval($c)){
-			if($b < $a){
-				echo '<h3>Danh sách số đã nhập vào</h3>';
-				echo '<p>Số a = '. $a.'</p>';
-				echo '<p>Số b = '. $b.'</p>';
-				echo '<p>Số c = '. $c.'</p>';
+			if($b <= $a){
 				$url = "paginator.php";
 				pagination($a, $b, $c, $url, $page_current);		
 			}else{
