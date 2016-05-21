@@ -1,8 +1,7 @@
 <?php 
-
+header('Content-Type: text/html; charset=utf-8');
 $paragraph = isset($_POST['paragraph']) ? $_POST['paragraph'] : "";
 $characters = isset($_POST['characters']) ? $_POST['characters'] : "";
-
 ?>
 <h1>Bài bonus 2</h1>
 <form action = "" method = "post">
@@ -14,15 +13,14 @@ $characters = isset($_POST['characters']) ? $_POST['characters'] : "";
 <?php 
 if(isset($_POST["submit"])){
 	if(!empty($paragraph) && !empty($characters)){
-		$vietnamese = "ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ";
-		$pattern_character = '/'.$characters.'/';
+		$vietnamese = "ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼẾỀỂưăạảấầẩẫậắằẳẵặẹẻẽếềểỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ";
+		$pattern_character = "/$characters/";
 		$pattern_word = '/[a-zA-Z0-9_'.$vietnamese.']*'.$characters.'[a-zA-Z0-9_'.$vietnamese.']*/';
-		// $pattern_word = '/\w*'.$characters.'\w*/';
 		$characters_replaced = '<b style="font-size:30px">'.$characters.'</b>';
 		preg_match_all($pattern_word, $paragraph, $listWords, PREG_OFFSET_CAPTURE);
+		preg_match_all($pattern_character, $paragraph, $matches, PREG_OFFSET_CAPTURE);
 		echo '<h3>Đoạn văn bản nhập vào: </h3>';
 		echo $paragraph.'<hr>';
-		preg_match_all($pattern_character, $paragraph, $matches, PREG_OFFSET_CAPTURE);
 		echo 'Số lần xuất hiện của ký tự "'.$characters.'" là: '.sizeof($matches[0]).'<br><hr>';
 		echo '<h3>Danh sách các từ chứa ký tự "'.$characters.'" là: </h3>';
 		$pattern_word_replaced = array();
