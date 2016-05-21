@@ -57,12 +57,30 @@ function pagination($a, $b, $value_number_limit, $url, $page_current){
 				$page = $page_current - 1;
 				$list_page .= '<td><a href = "'.$url.'?page='.$page.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.'Prev</a></td>';
 			}
-			for($i = 1; $i <= $number_page; $i++){
+			if($page_current <= 2){
+				$page_start = 1;
+				$page_finish = 5;	
+			}elseif($page_current > 2 && $page_current < $number_page - 2){
+				$page_start = $page_current - 2;
+				$page_finish = $page_current + 2;
+			}else {
+				$page_start = $number_page - 4;
+				$page_finish = $number_page;
+			}
+			if($page_current > 3){
+				$list_page .= '<td><a href = "'.$url.'?page=1&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.'1</a></td>';
+				$list_page .= "<td><b>...</b></td>";
+			}
+			for($i = $page_start; $i <= $page_finish; $i++){
 				if($i == $page_current){
 					$list_page .= '<td><b style = "color: red">'.$i.'</b></td>';
 				}else{
 					$list_page .= '<td><a href = "'.$url.'?page='.$i.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.$i.'</a></td>';
 				}
+			}
+			if($page_current < $number_page - 2){
+				$list_page .= "<td><b>...</b></td>";
+				$list_page .= '<td><a href = "'.$url.'?page='.$number_page.'&a='.$a.'&b='.$b.'&c='.$value_number_limit.'">'.$number_page.'</a></td>';
 			}
 			if($page_current < $number_page){
 				$page = $page_current + 1;
@@ -77,12 +95,8 @@ function pagination($a, $b, $value_number_limit, $url, $page_current){
 if($a != 0 && $b != 0 && $c != 0 && $page_current > 0){
 	if(is_numeric($a) && is_numeric($b) && is_numeric($c)){
 		if((int)$a == floatval($a) && (int)$b == floatval($b) && (int)$c == floatval($c)){
-			if($a < 100000){
-				$url = "paginator.php";
-				pagination($a, $b, $c, $url, $page_current);		
-			}else{
-				echo '<b style = "color: red">Giá trị a quá lớn</b>';
-			}
+			$url = "paginator.php";
+			pagination($a, $b, $c, $url, $page_current);		
 		}else{
 			echo '<b style = "color: red">Bạn đã nhập sai giá trị! Vui lòng nhập số nguyên !</b>';
 		}
